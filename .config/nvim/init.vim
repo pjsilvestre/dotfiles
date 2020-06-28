@@ -69,10 +69,6 @@ highlight ColorColumn ctermbg=lightyellow guibg=lightyellow
 		nnoremap <leader>q :wincmd q<CR>
 
 "Plugin Settings
-	"vim-airline
-		let g:airline_powerline_fonts=1
-		let g:airline_theme='gruvbox'
-		let g:airline#extensions#tabline#enabled=1
 	"CamelCaseMotion
 		map <silent>w <Plug>CamelCaseMotion_w
 		map <silent>b <Plug>CamelCaseMotion_b
@@ -80,6 +76,17 @@ highlight ColorColumn ctermbg=lightyellow guibg=lightyellow
 		sunmap w
 		sunmap b
 		sunmap e
+	"ctrl-p
+		"set local working directory to current file unless its a subdirectory
+		"of the cwd, the directory of the current file, or the nearest ancestor
+		"of the file containing .git
+			let g:ctrlpw_working_path_mode='acr'
+		"ignore files in .gitignore
+			let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+	"vim-airline
+		let g:airline_powerline_fonts=1
+		let g:airline_theme='gruvbox'
+		let g:airline#extensions#tabline#enabled=1
 	"YouCompleteMe
 		map <leader>gd :YcmCompleter GetDoc<CR>
 		map <leader>gt :YcmCompleter GoTo<CR>
