@@ -13,6 +13,7 @@ set nocp
 syntax on
 filetype plugin indent on
 set autoindent
+set foldmethod=syntax
 set incsearch
 set list
 set number relativenumber
