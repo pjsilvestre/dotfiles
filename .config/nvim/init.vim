@@ -1,11 +1,11 @@
 "Plugins
 call plug#begin('~/.data/plugged')
 Plug 'bkad/CamelCaseMotion'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'wesQ3/vim-windowswap'
-Plug 'ycm-core/YouCompleteMe'
 call plug#end()
 
 "General Settings
@@ -38,6 +38,12 @@ highlight ColorColumn ctermbg=lightyellow guibg=lightyellow
 			autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
 			autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
 		augroup END
+	"persist folds
+		augroup AutoSaveFolds
+			autocmd!
+			autocmd BufWinLeave * mkview
+			autocmd BufWinEnter * silent loadview
+		augroup END
 
 "Shortcuts
 	"remove highlighting
@@ -68,6 +74,17 @@ highlight ColorColumn ctermbg=lightyellow guibg=lightyellow
 	"close/quit window
 		nnoremap <leader>c :wincmd c<CR>
 		nnoremap <leader>q :wincmd q<CR>
+	"coc.nvim
+		"navigate to next error
+			nmap <leader>e <Plug>(coc-diagnostic-next)
+		"get code actions for current line
+			nmap <leader>a <Plug>(coc-codeaction-line)
+		"go-to's
+			nmap <leader>gd <Plug>(coc-definition)
+			nmap <leader>gi <Plug>(coc-implementation)
+			nmap <leader>gr <Plug>(coc-references)
+		"format buffer
+			nmap <leader>f <Plug>(coc-format)
 
 "Plugin Settings
 	"CamelCaseMotion
@@ -77,19 +94,45 @@ highlight ColorColumn ctermbg=lightyellow guibg=lightyellow
 		sunmap w
 		sunmap b
 		sunmap e
+	"coc.nvim
+		"more space for message display
+			set cmdheight=2
+		"don't pass messages to ins-completion-menu
+			set shortmess+=c
+		"always show signcolumn
+			set signcolumn=yes
+		"shorten update time
+			set updatetime=300
+		"trigger completion
+			inoremap <silent><expr><TAB>
+				\ pumvisible() ? "\<C-n>" :
+				\ <SID>check_back_space() ? "\<TAB>" :
+				\ coc#refresh()
+			inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+			function! s:check_back_space() abort
+				let col = col('.') - 1
+				return !col || getline('.')[col - 1]  =~# '\s'
+			endfunction
+		"confirm completion
+			if exists('*complete_info')
+				inoremap <expr><CR> complete_info()["selected"]
+				\ != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+			else
+				inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+			endif
+		"navigate errors
+			nmap <silent>[e <Plug>(coc-diagnostic-prev)
+			nmap <silent>]e <Plug>(coc-diagnostic-next)
 	"ctrl-p
 		"set local working directory to current file unless its a subdirectory
 		"of the cwd, the directory of the current file, or the nearest ancestor
 		"of the file containing .git
 			let g:ctrlpw_working_path_mode='acr'
 		"ignore files in .gitignore
-			let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+			let g:ctrlp_user_command =
+				\ ['.git', 'cd %s && git ls-files -co --exclude-standard']
 	"vim-airline
 		let g:airline_powerline_fonts=1
 		let g:airline_theme='gruvbox'
+		let g:airline#extensions#coc#enabled=1
 		let g:airline#extensions#tabline#enabled=1
-	"YouCompleteMe
-		map <leader>gd :YcmCompleter GetDoc<CR>
-		map <leader>gt :YcmCompleter GoTo<CR>
-		map <leader>gf :YcmCompleter FixIt<CR>
-		map <leader>rr :YcmCompleter RefactorRename 
