@@ -39,10 +39,10 @@ highlight ColorColumn ctermbg=lightyellow guibg=lightyellow
 			autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
 		augroup END
 	"persist folds
-		augroup AutoSaveFolds
+		augroup persistfolds
 			autocmd!
-			autocmd BufWinLeave * mkview
-			autocmd BufWinEnter * silent loadview
+			autocmd BufWinLeave ?* mkview 1
+			autocmd BufWinEnter ?* silent! loadview 1
 		augroup END
 
 "Shortcuts
