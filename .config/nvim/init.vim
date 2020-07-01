@@ -2,7 +2,7 @@
 call plug#begin('~/.data/plugged')
 Plug 'bkad/CamelCaseMotion'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf/', { 'do': { -> fzf#install() } }
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'wesQ3/vim-windowswap'
@@ -38,16 +38,12 @@ highlight ColorColumn ctermbg=lightyellow guibg=lightyellow
 			autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
 			autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
 		augroup END
-	"persist folds
-		augroup persistfolds
-			autocmd!
-			autocmd BufWinLeave ?* mkview 1
-			autocmd BufWinEnter ?* silent! loadview 1
-		augroup END
 
 "Shortcuts
 	"remove highlighting
-		nnoremap <esc> :noh<return><esc>
+		nnoremap <esc> :noh<CR><esc>
+	"fzf
+		nnoremap <C-f> :FZF<CR>
 
 "Leader Key Settings/Shortcuts
 	"leader key
@@ -95,8 +91,6 @@ highlight ColorColumn ctermbg=lightyellow guibg=lightyellow
 		sunmap b
 		sunmap e
 	"coc.nvim
-		"more space for message display
-			set cmdheight=2
 		"don't pass messages to ins-completion-menu
 			set shortmess+=c
 		"always show signcolumn
@@ -123,14 +117,26 @@ highlight ColorColumn ctermbg=lightyellow guibg=lightyellow
 		"navigate errors
 			nmap <silent>[e <Plug>(coc-diagnostic-prev)
 			nmap <silent>]e <Plug>(coc-diagnostic-next)
-	"ctrl-p
-		"set local working directory to current file unless its a subdirectory
-		"of the cwd, the directory of the current file, or the nearest ancestor
-		"of the file containing .git
-			let g:ctrlpw_working_path_mode='acr'
-		"ignore files in .gitignore
-			let g:ctrlp_user_command =
-				\ ['.git', 'cd %s && git ls-files -co --exclude-standard']
+	"fzf
+		"split keybindings
+			let g:fzf_action = {'ctrl-v': 'split', 'ctrl-z': 'vsplit' }
+		"window settings
+			let g:fzf_layout = {'window': '10new' }
+		"color scheme
+			let g:fzf_colors =
+				\ { 'fg':      ['fg', 'Normal'],
+				  \ 'bg':      ['bg', 'Normal'],
+				  \ 'hl':      ['fg', 'Comment'],
+				  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+				  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+				  \ 'hl+':     ['fg', 'Statement'],
+				  \ 'info':    ['fg', 'PreProc'],
+				  \ 'border':  ['fg', 'Ignore'],
+				  \ 'prompt':  ['fg', 'Conditional'],
+				  \ 'pointer': ['fg', 'Exception'],
+				  \ 'marker':  ['fg', 'Keyword'],
+				  \ 'spinner': ['fg', 'Label'],
+				  \ 'header':  ['fg', 'Comment'] }
 	"vim-airline
 		let g:airline_powerline_fonts=1
 		let g:airline_theme='gruvbox'
