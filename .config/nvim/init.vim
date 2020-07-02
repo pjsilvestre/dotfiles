@@ -3,6 +3,7 @@ call plug#begin('~/.data/plugged')
 Plug 'bkad/CamelCaseMotion'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf/', { 'do': { -> fzf#install() } }
+Plug 'mbbill/undotree'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'wesQ3/vim-windowswap'
@@ -44,6 +45,8 @@ highlight ColorColumn ctermbg=lightyellow guibg=lightyellow
 		nnoremap <esc> :noh<CR><esc>
 	"fzf
 		nnoremap <C-f> :FZF<CR>
+	"undotree
+		nnoremap <F5> :UndotreeToggle<CR>
 
 "Leader Key Settings/Shortcuts
 	"leader key
@@ -137,6 +140,12 @@ highlight ColorColumn ctermbg=lightyellow guibg=lightyellow
 				  \ 'marker':  ['fg', 'Keyword'],
 				  \ 'spinner': ['fg', 'Label'],
 				  \ 'header':  ['fg', 'Comment'] }
+	"undotree
+		let g:undotree_RelativeTimestamp=0
+		let g:undotree_ShortIndicators=1
+		let g:undotree_SetFocusWhenToggle=1
+		let g:undotree_SplitWidth=40
+		let g:undotree_WindowLayout=4
 	"vim-airline
 		let g:airline_powerline_fonts=1
 		let g:airline_theme='gruvbox'
