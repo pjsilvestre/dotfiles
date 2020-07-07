@@ -29,7 +29,7 @@ set tabstop=2
 "Theming Settings
 colorscheme gruvbox
 set background=light
-set colorcolumn=80,120
+set colorcolumn=80,100,120
 highlight ColorColumn ctermbg=lightyellow guibg=lightyellow
 
 "Autocommand Settings
