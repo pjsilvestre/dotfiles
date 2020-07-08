@@ -84,6 +84,8 @@ highlight ColorColumn ctermbg=lightyellow guibg=lightyellow
 			nmap <leader>gr <Plug>(coc-references)
 		"format buffer
 			nmap <leader>f <Plug>(coc-format)
+		"rename symbol
+			nmap <leader>rn <Plug>(coc-rename)
 
 "Plugin Settings
 	"CamelCaseMotion
