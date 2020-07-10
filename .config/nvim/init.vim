@@ -17,6 +17,7 @@ set autoindent
 set foldmethod=syntax
 set incsearch
 set list
+set mouse=a
 set number relativenumber
 set splitbelow
 set termguicolors
