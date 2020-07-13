@@ -1,31 +1,9 @@
 general {
 	output_format = "i3bar"
 	colors = true
-	interval = 1
 }
 
-order += "load"
-order += "cpu_usage"
-order += "memory"
-order += "disk /"
 order += "time"
-
-cpu_usage {
-	format = "%usage %cpu0 %cpu1 %cpu2 %cpu3"
-}
-
-disk "/" {
-	prefix_type = "custom"
-	format = "%used / %total"
-}
-
-load {
-	format = "%1min %5min %15min"
-}
-
-memory {
-	format = "%used / %total"
-}
 
 time {
 	format = "%A %F %X"
