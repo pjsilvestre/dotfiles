@@ -31,6 +31,7 @@ set tabstop=2
 colorscheme gruvbox
 set background=light
 set colorcolumn=80,100,120
+let g:gruvbox_contrast_light='hard'
 highlight ColorColumn ctermbg=lightyellow guibg=lightyellow
 
 "Autocommand Settings
