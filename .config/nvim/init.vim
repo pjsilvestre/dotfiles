@@ -31,7 +31,6 @@ set tabstop=2
 colorscheme gruvbox
 set background=light
 set colorcolumn=80,100,120
-let g:gruvbox_contrast_light='hard'
 highlight ColorColumn ctermbg=lightyellow guibg=lightyellow
 
 "Autocommand Settings
@@ -76,10 +75,38 @@ highlight ColorColumn ctermbg=lightyellow guibg=lightyellow
 		nnoremap <leader>c :wincmd c<CR>
 		nnoremap <leader>q :wincmd q<CR>
 	"coc.nvim
-		"navigate to next error
-			nmap <leader>e <Plug>(coc-diagnostic-next)
+		"trigger completion
+			inoremap <silent><expr> <TAB>
+				\ pumvisible() ? "\<C-n>" :
+				\ <SID>check_back_space() ? "\<TAB>" :
+				\ coc#refresh()
+			inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+			function! s:check_back_space() abort
+				let col = col('.') - 1
+				return !col || getline('.')[col - 1]  =~# '\s'
+			endfunction
+		"confirm completion
+			if exists('*complete_info')
+				inoremap <expr> <CR> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+			else
+				inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+			endif
 		"get code actions for current line
 			nmap <leader>a <Plug>(coc-codeaction-line)
+		"navigate errors
+			nmap <silent>[e <Plug>(coc-diagnostic-prev)
+			nmap <silent>]e <Plug>(coc-diagnostic-next)
+		"navigate to next error
+			nmap <leader>e <Plug>(coc-diagnostic-next)
+		"show documentation
+			nnoremap <leader>m :call <SID>show_documentation()<CR>
+			function! s:show_documentation()
+				if (index(['vim', 'help'], &filetype) >= 0)
+					execute 'h '.expand('<cword>')
+				else
+					call CocAction('doHover')
+				endif
+			endfunction
 		"go-to's
 			nmap <leader>gd <Plug>(coc-definition)
 			nmap <leader>gi <Plug>(coc-implementation)
@@ -88,6 +115,12 @@ highlight ColorColumn ctermbg=lightyellow guibg=lightyellow
 			nmap <leader>f <Plug>(coc-format)
 		"rename symbol
 			nmap <leader>rn <Plug>(coc-rename)
+		"select inside function
+			xmap if <Plug>(coc-funcobj-i)
+			omap if <Plug>(coc-funcobj-i)
+		"select around function
+			xmap af <Plug>(coc-funcobj-a)
+			omap af <Plug>(coc-funcobj-a)
 
 "Plugin Settings
 	"CamelCaseMotion
@@ -104,26 +137,8 @@ highlight ColorColumn ctermbg=lightyellow guibg=lightyellow
 			set signcolumn=yes
 		"shorten update time
 			set updatetime=300
-		"trigger completion
-			inoremap <silent><expr><TAB>
-				\ pumvisible() ? "\<C-n>" :
-				\ <SID>check_back_space() ? "\<TAB>" :
-				\ coc#refresh()
-			inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-			function! s:check_back_space() abort
-				let col = col('.') - 1
-				return !col || getline('.')[col - 1]  =~# '\s'
-			endfunction
-		"confirm completion
-			if exists('*complete_info')
-				inoremap <expr><CR> complete_info()["selected"]
-				\ != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-			else
-				inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-			endif
-		"navigate errors
-			nmap <silent>[e <Plug>(coc-diagnostic-prev)
-			nmap <silent>]e <Plug>(coc-diagnostic-next)
+		"highlight symbol, references when holding cursor
+			autocmd CursorHold * silent call CocActionAsync('highlight')
 	"fzf
 		"split keybindings
 			let g:fzf_action = {'ctrl-v': 'split', 'ctrl-z': 'vsplit' }
