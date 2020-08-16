@@ -5,6 +5,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf/', { 'do': { -> fzf#install() } }
 Plug 'mbbill/undotree'
 Plug 'morhetz/gruvbox'
+Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
 Plug 'wesQ3/vim-windowswap'
 call plug#end()
