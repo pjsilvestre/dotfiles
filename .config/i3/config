@@ -46,6 +46,9 @@ bindsym $mod+Return exec kitty
 # start firefox
 bindsym $mod+Shift+Return exec firefox
 
+# start vs code
+bindsym $mod+c exec code
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
