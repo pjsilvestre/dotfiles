@@ -1,0 +1,10 @@
+{
+    "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 16,
+    "editor.insertSpaces": false,
+    "editor.lineNumbers": "relative",
+    "editor.renderWhitespace": "boundary",
+    "workbench.colorTheme": "Gruvbox Light Medium",
+    "vim.enableNeovim": true,
+}
