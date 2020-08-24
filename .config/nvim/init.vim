@@ -2,6 +2,7 @@
 call plug#begin('~/.data/plugged')
 Plug 'bkad/CamelCaseMotion'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 Plug 'junegunn/fzf/', { 'do': { -> fzf#install() } }
 Plug 'mbbill/undotree'
 Plug 'morhetz/gruvbox'
