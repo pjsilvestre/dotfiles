@@ -188,3 +188,4 @@ bar {
 
 # Autostart programs
 exec_always unclutter
+exec_always vmware-user
