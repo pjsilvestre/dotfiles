@@ -1,11 +1,11 @@
 "Plugins
 call plug#begin('~/.data/plugged')
+Plug 'arcticicestudio/nord-vim'
 Plug 'bkad/CamelCaseMotion'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 Plug 'junegunn/fzf/', { 'do': { -> fzf#install() } }
 Plug 'mbbill/undotree'
-Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
 Plug 'wesQ3/vim-windowswap'
@@ -30,10 +30,9 @@ set softtabstop=2
 set tabstop=2
 
 "Theming Settings
-colorscheme gruvbox
-set background=light
+colorscheme nord
 set colorcolumn=80,100,120
-highlight ColorColumn ctermbg=lightyellow guibg=lightyellow
+highlight ColorColumn ctermfg=17 guifg=#00005f "rgb=0,0,95
 
 "Autocommand Settings
 	"toggle between relative and normal numbering when switching focus
@@ -169,6 +168,6 @@ highlight ColorColumn ctermbg=lightyellow guibg=lightyellow
 		let g:undotree_WindowLayout=4
 	"vim-airline
 		let g:airline_powerline_fonts=1
-		let g:airline_theme='gruvbox'
+		let g:airline_theme='nord'
 		let g:airline#extensions#coc#enabled=1
 		let g:airline#extensions#tabline#enabled=1
